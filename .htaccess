@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+IndexIgnore */*
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# rule 1
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# if the extension is not an image
+RewriteCond %{REQUEST_URI} !\.(gif|jpg|png)$ [NC]
+
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+# rule 2
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# if image not found, redirect
+RewriteRule \.(gif|jpg|png)$ /site/error.html [R,L]
+</IfModule>
