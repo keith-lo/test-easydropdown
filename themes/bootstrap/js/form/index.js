@@ -43,22 +43,46 @@ $(function(){
 		}
     });
 
-    $('select.mydropdown option').each(function(){
-        var $option = $(this);
-        var optionText = $option.text();
-        var optionClasses = $option.attr('class');
-        if( optionClasses ){
-            var $lis = $option.closest('.dropdown').find('li');
-            if( $lis.length > 0 ){
-                $lis.each(function(){
-                    var $li = $(this);
+    function styleDropDown($select){
+        $select.find('option').each(function(){
+            $option = $(this);
+            var optionText = $option.text();
+            var optionClasses = $option.attr('class');
+            if( optionClasses ){
+                var $lis = $option.closest('.dropdown').find('li');
+                if( $lis.length > 0 ){
+                    $lis.each(function(){
+                        var $li = $(this);
 
-                    if( $li.text() == optionText ){
-                        $li.attr('class', optionClasses);
-                    }
-                });
+                        if( $li.text() == optionText ){
+                            $li.attr('class', optionClasses);
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 
+    styleDropDown($('#field-name'));
+
+    $('#clickme').click(function(e){
+        e.preventDefault();
+
+        var selectObj = $('#field-name');
+
+        selectObj.easyDropDown('destroy');
+        selectObj.empty();
+        $.ajax({url: 'country.php'}).done(function(data){
+            $.each(data.outlets, function(index, outlet){
+                var attr = {};
+                if( outlet.class ){ attr.class = outlet.class; }
+                if( outlet.disabled ){ attr.disabled = outlet.disabled; }
+
+                selectObj.append($("<option></option>").attr(attr).text(outlet.text));
+            });
+
+            selectObj.easyDropDown();
+            styleDropDown(selectObj);
+        });
+    });
 });

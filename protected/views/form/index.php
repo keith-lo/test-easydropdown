@@ -2,7 +2,7 @@
 <script src="<?= Yii::app()->theme->baseUrl ?>/js/form/index.js"></script>
 
 <?=
-	CHtml::dropDownList('field-name', 'option2', 
+	CHtml::dropDownList('field-name', 'option2',
 		array('option1' => 'Option 1 (No stock)', 'option2' => 'Option 2', 'option3' => 'Option 3', 'option4' => 'Option 4'),
 		array(
 			'class' => 'mydropdown',
@@ -13,6 +13,9 @@
 		)
 	);
 ?>
+
+<button id="clickme">Click Me</button>
+<hr>
 
 <!--
 <select class="mydropdown" name="field-name" id="field-name">
