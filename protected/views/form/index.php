@@ -2,10 +2,22 @@
 <script src="<?= Yii::app()->theme->baseUrl ?>/js/form/index.js"></script>
 
 <?=
+	/*
 	CHtml::dropDownList('field-name', 'option2',
-		array('option1' => 'Option 1 (No stock)', 'option2' => 'Option 2', 'option3' => 'Option 3', 'option4' => 'Option 4'),
+		array('option1' => 'Option 1 <span>(No stock)</span>', 'option2' => 'Option 2', 'option3' => 'Option 3', 'option4' => 'Option 4'),
 		array(
-			'class' => 'mydropdown',
+			'class' => 'mydropdown', 'data-value' => 'outlet3',
+			'options' => array(
+				'option1' => array('class' => 'text-danger', 'disabled'=>'disabled'),
+				'option2' => array('class' => 'bg-warning'),
+			)
+		)
+	);
+	*/
+	CHtml::dropDownList('field-name', 'option2',
+		array(0),
+		array(
+			'class' => 'mydropdown', 'data-value' => 'outlet3',
 			'options' => array(
 				'option1' => array('class' => 'text-danger', 'disabled'=>'disabled'),
 				'option2' => array('class' => 'bg-warning'),
@@ -27,6 +39,8 @@
 -->
 
 <style type="text/css">
+	.dropdown{ width: 500px }
 	.dropdown.disabled{ background: #808080; }
 	.dropdown .text-danger{ color: #a94442 !important; }
+	.dropdown span{ color: green; }
 </style>

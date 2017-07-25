@@ -72,13 +72,18 @@ $(function(){
 
         selectObj.easyDropDown('destroy');
         selectObj.empty();
-        $.ajax({url: 'country.php'}).done(function(data){
+        $.ajax({url: '/country.php'}).done(function(data){
             $.each(data.outlets, function(index, outlet){
                 var attr = {};
                 if( outlet.class ){ attr.class = outlet.class; }
                 if( outlet.disabled ){ attr.disabled = outlet.disabled; }
 
-                selectObj.append($("<option></option>").attr(attr).text(outlet.text));
+                var $option = $("<option></option>").attr(attr).text(outlet.text).val(outlet.value);
+
+                if( outlet.value == $('#field-name').data('value') ){
+                    $option.attr('selected', 'selected');
+                }
+                selectObj.append($option);
             });
 
             selectObj.easyDropDown();
